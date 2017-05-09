@@ -16,11 +16,16 @@ export default class Conversation extends React.Component {
         super(props);
         this.state = {height:0}
     }
+    componentDidMount () {
+    	this.state.message = "hello";
+	xmpp.sendMessage(this.state.message);
+    	this.state.message = "";
+    }
     componentWillMount () {
         Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
         Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
         this.mounted = true;
-        xmpp.login({local:xmpp.local, remote:xmpp.remote});
+      //  xmpp.login({local:xmpp.local, remote:xmpp.remote});
     }
     
     componentWillUnmount(){

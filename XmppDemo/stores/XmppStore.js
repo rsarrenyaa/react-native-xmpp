@@ -1,6 +1,6 @@
 import XMPP from 'react-native-xmpp';
-const DOMAIN = " jabber.hylaa.net";
-const SCHEMA = "ios";
+const DOMAIN = "jabber.hylaa.net";
+const SCHEMA = "android";
 import {observable} from 'mobx';
 import autobind from 'autobind'
 @autobind

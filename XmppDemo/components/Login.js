@@ -8,7 +8,16 @@ import xmpp from '../stores/XmppStore';
 export default class Login extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+	local: "sarrenyaa",
+	localPassword: "P@ssw0rd",
+	remote: "seri"
+    };
+  }
+  componentDidMount() {
+  
+	xmpp.login(this.state)
+
   }
   render(){
     return (
