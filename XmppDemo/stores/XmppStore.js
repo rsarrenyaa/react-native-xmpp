@@ -1,5 +1,5 @@
 import XMPP from 'react-native-xmpp';
-const DOMAIN = "jabber.hot-chilli.net";
+const DOMAIN = " jabber.hylaa.net";
 const SCHEMA = "ios";
 import {observable} from 'mobx';
 import autobind from 'autobind'
@@ -18,8 +18,9 @@ class XmppStore {
         XMPP.on('login', this.onLogin);
         XMPP.on('message', this.onReceiveMessage);
         // default values
-        this.local = 'rntestuser1';
-        this.remote = 'rntestuser2';
+        this.local = 'sarrenyaa@jabber.hylaa.net';
+        this.remote = 'seri@jabber.hylaa.net';
+        this.localPassword = 'P@ssw0rd'
     }
     
     _userForName(name){
@@ -87,7 +88,7 @@ class XmppStore {
             this.loginError = null;
 
             // try to login to test domain with the same password as username
-            XMPP.connect(this._userForName(this.local),this.local);
+            XMPP.connect(this._userForName(this.local),this.localPassword);
             this.loading = true;
         }
 

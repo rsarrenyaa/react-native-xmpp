@@ -57,8 +57,8 @@ export default class Conversation extends React.Component {
                                    style={styles.message} placeholder="Enter message..."/>
                     </View>
                     <View style={styles.sendButton}>
-                        <Button onPress={()=>{xmpp.sendMessage(this.state.message);this.setState({message:''})}} disabled={!this.state.message || !this.state.message.trim()}>Send</Button>
-                    </View>
+                       <Button onPress={()=>{xmpp.sendMessage(this.state.message);this.setState({message:''})}} disabled={!this.state.message || !this.state.message.trim()}>Send</Button>
+                   </View>
                 </View>
                 <View style={{height:this.state.height}}></View>
             </View>

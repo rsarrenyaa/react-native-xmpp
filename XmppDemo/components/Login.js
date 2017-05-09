@@ -14,30 +14,40 @@ export default class Login extends React.Component {
     return (
       <View style={[styles.container,{alignItems:'center'}]}>
         {xmpp.loginError && <Text style={{color:'red'}}>{xmpp.loginError}</Text>}
-        <Text style={styles.categoryLabel}>Please enter local and remote usernames</Text>
+        <Text style={styles.categoryLabel}>Please enter local and remote usernames and local password</Text>
         <Text style={styles.categoryLabel}>(rntestuserN, where N=1,2,3 or 4) </Text>
         <View style={styles.row}>
           <TextInput style={styles.rowInput}
                      autoCorrect={false}
                      autoCapitalize="none"
                      autoFocus={true}
-                     placeholder="Local (@jabber.hot-chilli.net)"
+                     placeholder="Local (@jabber.hylaa.net)"
                      value={this.state.local}
                      onChangeText={(local)=>this.setState({local})}
           />
         </View>
-        <View style={styles.lastRow}>
+        <View style={styles.row}>
           <TextInput style={styles.rowInput}
                      autoCorrect={false}
                      autoCapitalize="none"
-                     placeholder="Remote (@jabber.hot-chilli.net)"
+                     autoFocus={true}
+                     placeholder="Local Password ('')"
+                     value={this.state.localPassword}
+                     onChangeText={(localPassword)=>this.setState({localPassword})}
+          />
+        </View>
+        <View style={styles.lastRow}>
+          <TextInput style={styles.rowInput}
+
+                     autoCorrect={false}
+                     autoCapitalize="none"
+                     placeholder="Remote (@jabber.hylaa.net)"
                      value={this.state.remote}
                      onChangeText={(remote)=>this.setState({remote})}
           />
         </View>
-        <View style={styles.button}><Button onPress={()=>xmpp.login(this.state)}>Login</Button></View>
+          <View style={styles.button}><Button onPress={()=>xmpp.login(this.state)}>Login</Button></View>
         <ActivityIndicator active={xmpp.loading}/>
-      
       </View>
     )
   }
