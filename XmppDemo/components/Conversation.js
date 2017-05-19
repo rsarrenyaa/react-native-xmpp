@@ -41,8 +41,52 @@ export default class Conversation extends React.Component {
         if (this.mounted) this.setState({height: 0});
     }
     
+
     render(){
         const dataSource = ds.cloneWithRows(xmpp.conversation.map(x=>x));
+    let pickImage = function (){
+    var ImagePicker = require('react-native-image-picker');
+
+// More info on all the options is below in the README...just some common use cases shown here
+    var options = {
+    title: 'Select Avatar',
+    customButtons: [
+    {name: 'fb', title: 'Choose Photo from Facebook'},
+  ],
+    storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
+
+/**
+ * The first arg is the options object for customization (it can also be null or omitted for default options),
+ * The second arg is the callback which sends object: response (more info below in README)
+ */
+    ImagePicker.showImagePicker(options, (response) => {
+    console.log('Response = ', response);
+
+  if (response.didCancel) {
+    console.log('User cancelled image picker');
+  }
+  else if (response.error) {
+    console.log('ImagePicker Error: ', response.error);
+  }
+  else if (response.customButton) {
+    console.log('User tapped custom button: ', response.customButton);
+  }
+  else {
+    let source = { uri: response.uri };
+
+    // You can also display the image using data:
+    // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+    this.setState({
+      avatarSource: source
+    });
+  }
+});
+    }
         return (
             <View style={styles.container}>
                 <View style={{flex:1}}>
@@ -69,6 +113,7 @@ export default class Conversation extends React.Component {
                     </View>
                     <View style={styles.sendButton}>
                        <Button onPress={()=>{xmpp.sendMessage(this.state.message);this.setState({message:''})}} disabled={!this.state.message || !this.state.message.trim()}>Send</Button>
+                       <Button onPress={pickImage}>Image</Button>
                    </View>
                 </View>
                 <View style={{height:this.state.height}}></View>

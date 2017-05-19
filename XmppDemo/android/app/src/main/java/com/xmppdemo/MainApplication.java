@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import rnxmpp.RNXMPPPackage;
+import com.imagepicker.ImagePickerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -26,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new RNXMPPPackage()
+              new ImagePickerPackage(),
+      new RNXMPPPackage()
       );
     }
   };
