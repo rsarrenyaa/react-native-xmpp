@@ -45,6 +45,12 @@ const styles = StyleSheet.create({
         flex:1,
         height:(Platform.OS=='ios') ? 30 : 50
     },
+    imageItem: {
+        padding:10,
+        paddingRight:10,
+	height:200,
+	width:200
+    },
     messageItem: {
         padding:10,
         paddingRight:20,

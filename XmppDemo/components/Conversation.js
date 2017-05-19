@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TextInput, Keyboard, ListView, Dimensions}  from 'react-native';
+import {Image, View, Text, ScrollView, TextInput, Keyboard, ListView, Dimensions}  from 'react-native';
 import styles from './styles';
 const height = Dimensions.get('window').height;
 import Button from 'react-native-button';
@@ -50,8 +50,14 @@ export default class Conversation extends React.Component {
                         ref="messages"
                         renderScrollComponent={props => <InvertibleScrollView {...props} inverted />}
                         dataSource={dataSource}
-                        renderRow={(row) =>
-                            <Text style={[styles.messageItem, {textAlign:row.own ? 'right':'left' }]}>{row.text}</Text>}
+                        renderRow={(row) => {
+			    if(row.text.startsWith("data:")){
+                              return (<Image style={[styles.imageItem, {alignSelf: row.own ? 'flex-end':'flex-start' }]} source={{uri: row.text}}></Image>);
+			    }else{
+                              return (<Text style={[styles.messageItem, {textAlign:row.own ? 'right':'left' }]}>{row.text}</Text>);
+			    }
+
+			}}
                         />
                 </View>
                 <View style={styles.messageBar}>
