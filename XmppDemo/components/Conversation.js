@@ -44,20 +44,39 @@ export default class Conversation extends React.Component {
 
     render(){
         const dataSource = ds.cloneWithRows(xmpp.conversation.map(x=>x));
-    let pickImage = function (){
-    var ImagePicker = require('react-native-image-picker');
-
-// More info on all the options is below in the README...just some common use cases shown here
-    var options = {
-    title: 'Select Avatar',
-    customButtons: [
-    {name: 'fb', title: 'Choose Photo from Facebook'},
-  ],
-    storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-};
+	let self = this;
+	let send = function() {
+	    let body = self.state.message;
+	    if(body.startsWith("http://") || body.startsWith("https://")) {
+	        fetch(body).then(function(response){ 
+	            return response.text();
+	        }).then(function(text){
+	                let match = text.match(/<title>.*<\/title>/);
+	                if(match != null && match.length >= 1) {
+	                        let title = match[0].replace("<title>", "").replace("</title>", "");
+				xmpp.sendMessage(body + " " + title);
+                		self.setState({message:''});
+	                }
+	        }).catch(function(e){
+	                console.log(e);
+	        });
+	    } else {
+		xmpp.sendMessage(self.state.message);
+		self.setState({message:''});
+	    }
+	}
+        let pickImage = function (){
+            var ImagePicker = require('react-native-image-picker');
+            var options = {
+	        title: 'Select Avatar',
+	        customButtons: [
+	            {name: 'fb', title: 'Choose Photo from Facebook'},
+	        ],
+	        storageOptions: {
+	        skipBackup: true,
+	        path: 'images'
+            }
+        };
 
 /**
  * The first arg is the options object for customization (it can also be null or omitted for default options),
@@ -112,8 +131,8 @@ export default class Conversation extends React.Component {
                                    style={styles.message} placeholder="Enter message..."/>
                     </View>
                     <View style={styles.sendButton}>
-                       <Button onPress={()=>{xmpp.sendMessage(this.state.message);this.setState({message:''})}} disabled={!this.state.message || !this.state.message.trim()}>Send</Button>
-                       <Button onPress={pickImage}>Image</Button>
+			<Button onPress={send} disabled={!this.state.message || !this.state.message.trim()}>Send</Button>
+                   	<Button onPress={pickImage}>Image</Button>
                    </View>
                 </View>
                 <View style={{height:this.state.height}}></View>
